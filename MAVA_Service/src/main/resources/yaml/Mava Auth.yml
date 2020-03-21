@@ -1,0 +1,335 @@
+swagger: '2.0'
+info:
+  version: 0.0.1
+  title: Simple JWT Authentication and Authorization API
+  description: This API manages authentication and Authorization process
+  contact:
+    name: MAVA API Support
+    email: MAVA@gmail.com
+  x-audience: company-internal
+host: mava.com
+basePath: /dev/v1
+consumes:
+  - application/json
+produces:
+  - application/json
+schemes: 
+  - http
+  - https
+paths:
+  '/semi-register':
+    post:
+      summary: Register only email and password  
+      description: Register only email and password for a registerin user
+      tags:
+        - Authentications
+      consumes:
+        - application/json
+      produces: 
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Content to be added into DB
+          required: true
+          schema:
+            $ref: '#/definitions/RegisterBody'
+      responses:
+        '200':
+          description: 'Registered succesfully!'
+          schema: 
+            $ref: '#/definitions/RegisterBody'
+          examples:
+            application/json: |-
+              {
+                 "email": "mava@gmail.com"
+              }
+        '400':
+          description: 'We can''t tell what resource you are asking about. Fix your URL.'
+          schema:
+            $ref: '#/definitions/Error-Response'
+          examples:
+              application/json: |-
+                {
+                  "code": 400,
+                  "type": "BAD_REQUEST",
+                  "message": "Bad request. Passed format is not valid"
+                }
+        '401':
+          description: 'Unauthorized'
+          schema:
+            $ref: '#/definitions/Error-Response'
+          examples:
+              application/json: |-
+                {
+                  "code": 401,
+                  "type": "UNAUTHORIZED",
+                  "message": "Unauthorized"
+                }
+        '403':
+          description: 'Forbidden'
+          schema:
+            $ref: '#/definitions/Error-Response'
+          examples:
+              application/json: |-
+                {
+                  "code": 403,
+                  "type": "FORBIDDEN",
+                  "message": "You  don''t have permission to access this resource"
+                }
+        '500':
+          description: 'Generic error'
+          schema:
+            $ref: '#/definitions/Error-Response'
+          examples:
+              application/json: |-
+                {
+                  "code": 500,
+                  "type": "INTERNAL_SERVER_ERROR",
+                  "message": "Generic Error: cannot connect to remote resource"
+  '/authenticate':
+    post:
+      summary: Generate or Create a token
+      description: Generate a new token
+      tags:
+        - Authentications
+      parameters:
+        - name: email
+          in: query
+          required: true
+          description: 'The email for registerd user'
+          type: string
+        - name: password
+          in: query
+          required: true
+          description: 'The password of the registered user'
+          type: string
+      responses:
+        '200':
+          description: 'Authorized succesfully!'
+          schema: 
+            $ref: '#/definitions/RegisterBody'
+          examples:
+            application/json: |-
+              {
+                 "email": "mava@gmail.com"
+              }
+        '400':
+          description: 'We can''t tell what resource you are asking about. Fix your URL.'
+          schema:
+            $ref: '#/definitions/Error-Response'
+          examples:
+              application/json: |-
+                {
+                  "code": 400,
+                  "type": "BAD_REQUEST",
+                  "message": "Bad request. Passed format is not valid"
+                }
+        '401':
+          description: 'Unauthorized'
+          schema:
+            $ref: '#/definitions/Error-Response'
+          examples:
+              application/json: |-
+                {
+                  "code": 401,
+                  "type": "UNAUTHORIZED",
+                  "message": "Unauthorized"
+                }
+        '403':
+          description: 'Forbidden'
+          schema:
+            $ref: '#/definitions/Error-Response'
+          examples:
+              application/json: |-
+                {
+                  "code": 403,
+                  "type": "FORBIDDEN",
+                  "message": "You  don''t have permission to access this resource"
+                }
+        '500':
+          description: 'Generic error'
+          schema:
+            $ref: '#/definitions/Error-Response'
+          examples:
+              application/json: |-
+                {
+                  "code": 500,
+                  "type": "INTERNAL_SERVER_ERROR",
+                  "message": "Generic Error: cannot connect to remote resource"
+                }              }
+  '/emails':
+    post:
+      summary: Send a new email
+      description: Send a new email
+      tags:
+        - Emails
+      consumes:
+        - application/json
+      produces: 
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Content to be added into e-mail
+          required: true
+          schema:
+            $ref: '#/definitions/EmailBody'
+      responses:
+        '200':
+          description: 'Email sent succesfully!'
+          schema: 
+            $ref: '#/definitions/EmailBody'
+          examples:
+            application/json: |-
+              {
+                "to": ["rcpt1@mavamava.com", "rcpt2@mava.com", "rcpt3@mava.com"],
+                "from": "sender@mava.com",
+                "subject": "about the stuff",
+                "carbonCopy":  ["rcp4@mava.com", "rcpt5@mava.com", "rcpt6@mava.com"],
+                "blindCarbonCopy": ["rcp7@mava.com", "rcpt8@mava.com"],
+                "template": "mava.com/dev/v1",
+                "attachments": [
+                  {
+                    "url": "mava.com/file/12A36B541865"
+                  }
+                ],
+                "placeholders": [
+                  {
+                    "key": "user",
+                    "value": "506023489"
+                  }
+                ]
+              }
+        '400':
+          description: 'We can''t tell what resource you are asking about. Fix your URL.'
+          schema:
+            $ref: '#/definitions/Error-Response'
+          examples:
+              application/json: |-
+                {
+                  "code": 400,
+                  "type": "BAD_REQUEST",
+                  "message": "Bad request. Passed format is not valid"
+                }
+        '401':
+          description: 'Unauthorized'
+          schema:
+            $ref: '#/definitions/Error-Response'
+          examples:
+              application/json: |-
+                {
+                  "code": 401,
+                  "type": "UNAUTHORIZED",
+                  "message": "Unauthorized"
+                }
+        '403':
+          description: 'Forbidden'
+          schema:
+            $ref: '#/definitions/Error-Response'
+          examples:
+              application/json: |-
+                {
+                  "code": 403,
+                  "type": "FORBIDDEN",
+                  "message": "You  don''t have permission to access this resource"
+                }
+        '500':
+          description: 'Generic error'
+          schema:
+            $ref: '#/definitions/Error-Response'
+          examples:
+              application/json: |-
+                {
+                  "code": 500,
+                  "type": "INTERNAL_SERVER_ERROR",
+                  "message": "Generic Error: cannot connect to remote resource"
+                }         
+                
+definitions:
+  RegisterBody: 
+    type: object
+    properties:
+        email:
+          type: string
+          example: "mava@gmail.com" 
+        password:
+          type: string
+          example: "abc123"
+        creationDate:
+          type: string
+          format: date-time
+          readOnly: true
+          example: '2018-06-01T00:00:00' 
+    required:
+      - email
+      - password
+  EmailBody: 
+    type: object
+    properties:
+        to:
+          type: array
+          items: 
+            type: string
+        from:
+          type: string
+        subject:
+          type: string 
+        carbonCopy:
+          type: array
+          items: 
+            type: string
+        blindCarbonCopy:
+          type: array
+          items: 
+            type: string
+        template:
+          type: string
+        attachments:
+          type: array
+          items:
+            $ref: '#/definitions/Attachment'  
+        placeholders:
+          type: array
+          items:
+            $ref: '#/definitions/Placeholder'
+        
+    required:
+      - to
+      - subject
+      - from
+      - template
+  Attachment :
+    type: object
+    properties:
+      url:
+        type: string
+  Placeholder :
+    type: object
+    properties:
+      key:
+        type: string
+      value:
+        type: string
+    required:
+      - key
+      - value
+  Error-Response:
+    type: object
+    properties:
+      code:
+        type: string
+      message:
+        type: string
+      description:
+        type: string
+    required:
+      - code
+      - message
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+security:
+  - Bearer: []
