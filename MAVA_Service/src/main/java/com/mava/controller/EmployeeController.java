@@ -3,10 +3,11 @@ package com.mava.controller;
 import java.security.Principal;
 import java.util.List;
 
-import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.keycloak.KeycloakSecurityContext;
+import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 import org.keycloak.representations.AccessToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -33,35 +34,28 @@ public class EmployeeController {
 	@Autowired
 	EmployeeService service;
 	
-//	@Autowired
-//	private KeycloakSecurityContext securityContext;
+	@Autowired
+	private KeycloakSecurityContext securityContext;
 
-//	@Autowired
-//	private AccessToken accessToken;
+	@Autowired
+	private AccessToken accessToken;
 
 	@GetMapping
-	public ResponseEntity<List<EmployeeDTO>> getAllEmployees(
-			Principal principal) throws RecordNotFoundException  {
-	//	System.out.println("A: "+principal.getName());
-    //    String userId = principal.getAccount().getKeycloakSecurityContext().getIdToken().getSubject();
-	//	System.out.println("B: "+AccessToken.PREFERRED_USERNAME);
-
+	public ResponseEntity<List<EmployeeDTO>> getAllEmployees(HttpServletRequest request, Principal principal) throws RecordNotFoundException  {
+		System.out.println("B: "+accessToken.getPreferredUsername());
 		List<EmployeeDTO> list = this.service.getAllEmployees();
 		return new ResponseEntity<List<EmployeeDTO>>(list, new HttpHeaders(), HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<EmployeeDTO> getEmployeeById(@PathVariable("id") Long id, Principal principal) throws RecordNotFoundException {
+	public ResponseEntity<EmployeeDTO> getEmployeeById(@PathVariable("id") Long id, Principal principal, HttpServletRequest request) throws RecordNotFoundException {
 		EmployeeDTO entity = this.service.getEmployeeById(id);
-	//	System.out.println("B: "+principal.getName());
 		return new ResponseEntity<EmployeeDTO>(entity, new HttpHeaders(), HttpStatus.OK);
 	}
 
 	@PostMapping
 	public ResponseEntity<Object> createEmployee(@RequestBody @Valid EmployeeDTO employeeDTO, BindingResult result, Principal principal)
 			throws BadRequestException {
-	//	System.out.println("B: "+AccessToken.PREFERRED_USERNAME);
-
 		return new ResponseEntity<>(this.service.createEmployee(employeeDTO), HttpStatus.OK);
 	}
 
