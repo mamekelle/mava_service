@@ -1,6 +1,7 @@
 package com.mava.model;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,61 +10,50 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
-@Table(name="TBL_EMPLOYEES")
-public class Employee implements Serializable{
-	
+@Table(name = "TBL_EMPLOYEES")
+public class Employee implements Serializable {
+
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
-    @Column(name="first_name")
-    private String firstName;
-    
-    @Column(name="last_name")
-    private String lastName;
-    
-    @Column(name="email", nullable=false, length=200)
-    private String email;
-    
-    public Long getId() {
-		return id;
-	}
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+	@Column(name = "first_name")
+	private String firstName;
 
-	public String getFirstName() {
-		return firstName;
-	}
+	@Column(name = "last_name")
+	private String lastName;
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+	@Column(name = "email", nullable = false, length = 200)
+	private String email;
 
-	public String getLastName() {
-		return lastName;
-	}
+	/** The last creation date. */
+	@Column(name = "creation_date")
+	private LocalDateTime creationDate;
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+	/** The last creation user. */
+	@Column(name = "creation_user")
+	private String creationUser;
 
-	public String getEmail() {
-		return email;
-	}
+	/** The last modification date. */
+	@Column(name = "last_modification_date")
+	private LocalDateTime lastModificationDate;
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+	/** The last modification user. */
+	@Column(name = "last_modification_user")
+	private String lastModificationUser;
 
-    @Override
-    public String toString() {
-        return "EmployeeEntity [id=" + id + ", firstName=" + firstName + 
-                ", lastName=" + lastName + ", email=" + email   + "]";
-    }
+	@Override
+	public String toString() {
+		return "EmployeeEntity [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+				+ "]";
+	}
 }

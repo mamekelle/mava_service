@@ -12,7 +12,7 @@
 
 package com.mava.dto;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -23,104 +23,50 @@ import org.apache.logging.log4j.util.Strings;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * System.
  */
+@Getter
+@Setter
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2018-08-23T09:15:41.799Z")
 public class SystemDTO {
-	
+
 	/** The created by. */
 	@JsonProperty("createdBy")
-	@NotNull @NotBlank @NotEmpty
+	@NotNull
+	@NotBlank
+	@NotEmpty
 	private String createdBy = Strings.EMPTY;
 
 	/** The created on. */
 	@JsonProperty("createdOn")
 	@NotNull
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
-	private Date createdOn = null;
+	private LocalDateTime createdOn = null;
 
 	/** The last updated by. */
 	@JsonProperty("lastUpdatedBy")
-	@NotNull @NotBlank @NotEmpty
+	@NotNull
+	@NotBlank
+	@NotEmpty
 	private String lastUpdatedBy = Strings.EMPTY;
 
 	/** The last updated on. */
 	@JsonProperty("lastUpdatedOn")
 	@NotNull
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
-	private Date lastUpdatedOn = null;
+	private LocalDateTime lastUpdatedOn = null;
 
-	/**
-	 * Gets the created by.
-	 *
-	 * @return the created by
-	 */
-	public String getCreatedBy() {
-		return createdBy;
-	}
-
-	/**
-	 * Gets the created on.
-	 *
-	 * @return the created on
-	 */
-	public Date getCreatedOn() {
-		return createdOn;
-	}
-
-	/**
-	 * Gets the last updated by.
-	 *
-	 * @return the last updated by
-	 */
-	public String getLastUpdatedBy() {
-		return lastUpdatedBy;
-	}
-
-	/**
-	 * Gets the last updated on.
-	 *
-	 * @return the last updated on
-	 */
-	public Date getLastUpdatedOn() {
-		return lastUpdatedOn;
-	}
-
-	/**
-	 * Sets the created by.
-	 *
-	 * @param createdBy the new created by
-	 */
-	public void setCreatedBy(String createdBy) {
+	public SystemDTO init(@NotNull @NotBlank @NotEmpty String createdBy, @NotNull LocalDateTime createdOn,
+			@NotNull @NotBlank @NotEmpty String lastUpdatedBy, @NotNull LocalDateTime lastUpdatedOn) {
 		this.createdBy = createdBy;
-	}
-
-	/**
-	 * Sets the created on.
-	 *
-	 * @param createdOn the new created on
-	 */
-	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
-	}
-
-	/**
-	 * Sets the last updated by.
-	 *
-	 * @param lastUpdatedBy the new last updated by
-	 */
-	public void setLastUpdatedBy(String lastUpdatedBy) {
 		this.lastUpdatedBy = lastUpdatedBy;
-	}
-
-	/**
-	 * Sets the last updated on.
-	 *
-	 * @param lastUpdatedOn the new last updated on
-	 */
-	public void setLastUpdatedOn(Date lastUpdatedOn) {
 		this.lastUpdatedOn = lastUpdatedOn;
+		return this;
 	}
 
 }

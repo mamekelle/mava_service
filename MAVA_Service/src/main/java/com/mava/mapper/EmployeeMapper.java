@@ -1,12 +1,13 @@
 package com.mava.mapper;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import com.mava.dto.EmployeeDTO;
 import com.mava.dto.LinkDTO;
-import com.mava.model.Link;
 import com.mava.model.Employee;
+import com.mava.model.Link;
 
 /**
  * Entity to DTO mapper interface.
@@ -23,6 +24,10 @@ public interface EmployeeMapper {
 	 * @param Employee entity to map
 	 * @return EmployeeDTO object
 	 */
+	@Mapping(source = "creationDate", target = "system.createdOn")
+	@Mapping(source = "creationUser", target = "system.createdBy")
+	@Mapping(source = "lastModificationUser", target = "system.lastUpdatedBy")
+	@Mapping(source = "lastModificationDate", target = "system.lastUpdatedOn")
 	EmployeeDTO employeeToEmployeeDto(Employee employee);
 
 	/**
@@ -31,6 +36,10 @@ public interface EmployeeMapper {
 	 * @param EmployeeDTO object to map
 	 * @return Employee entity
 	 */
+	@Mapping(source = "system.createdOn", target = "creationDate")
+	@Mapping(source = "system.createdBy", target = "creationUser")
+	@Mapping(source = "system.lastUpdatedBy", target = "lastModificationUser")
+	@Mapping(source = "system.lastUpdatedOn", target = "lastModificationDate")
 	Employee employeeDtoToEntity(EmployeeDTO employeeDTO);
 
 	/**

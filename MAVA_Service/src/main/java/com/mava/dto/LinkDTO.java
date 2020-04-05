@@ -1,12 +1,21 @@
 package com.mava.dto;
 
+import java.time.LocalDateTime;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * The Class LinkDTO.
  */
+@Getter
+@Setter
 public class LinkDTO {
 
 	/** The rel. */
@@ -25,59 +34,6 @@ public class LinkDTO {
 	/** The title. */
 	private String title;
 
-	/**
-	 * Gets the rel.
-	 *
-	 * @return the rel
-	 */
-	public String getRel() {
-		return rel;
-	}
-
-	/**
-	 * Sets the rel.
-	 *
-	 * @param rel the new rel
-	 */
-	public void setRel(String rel) {
-		this.rel = rel;
-	}
-
-	/**
-	 * Gets the href.
-	 *
-	 * @return the href
-	 */
-	public String getHref() {
-		return href;
-	}
-
-	/**
-	 * Sets the href.
-	 *
-	 * @param href the new href
-	 */
-	public void setHref(String href) {
-		this.href = href;
-	}
-
-	/**
-	 * Gets the title.
-	 *
-	 * @return the title
-	 */
-	public String getTitle() {
-		return title;
-	}
-
-	/**
-	 * Sets the title.
-	 *
-	 * @param title the new title
-	 */
-	public void setTitle(String title) {
-		this.title = title;
-	}
 
 	/**
 	 * Inits the.
